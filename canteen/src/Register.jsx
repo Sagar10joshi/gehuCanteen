@@ -3,6 +3,7 @@ import Lottie from "react-lottie";
 import regiAnima from "./images/Regist.json";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import "./Register.css";
+import "./Phonelog.css"
 
 const Register = () => {
   const [name, setname] = useState('');
@@ -80,7 +81,7 @@ const Register = () => {
   return (
     <div className="register-container">
       <div className="register-left">
-        <Lottie options={defaultOptions} height={500} width={500} />
+      <div id="lotti2"><Lottie options={defaultOptions} /></div>
       </div>
       <div className="register-right">
         <h2>Create account</h2>

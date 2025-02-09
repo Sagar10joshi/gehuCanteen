@@ -27,12 +27,12 @@
 
 .navbar ul {
     display: flex;
-    /* margin-left: auto; Pushes the menu to the right */
+    /* margin-left: auto;  */
 }
 
-#right {
+/* #right {
     margin-left: auto;
-}
+} */
 
 #right ul {
     display: flex;
@@ -125,9 +125,9 @@
     font-family: 'Bree Serif', serif;
 }
 
-.h-primary h1 {
-    color: aqua;
-}
+/* .h-primary h1 {
+    /* color: aqua; 
+} */
 
 h2 {
     font-size: 2.8rem;
@@ -139,7 +139,21 @@ h2 {
     background-color: #ff9a57;
 } 
 
+.lotti {
+  height: 400px;
+  /* width: 400px; */
+  width: 100%;
+    display: flex;
+    justify-content: center; /* Centers the Lottie animation horizontally */
+    align-items: center; /* Ensures vertical centering, if necessary */
+    margin-top: 20px; /* Adds space between heading and animation */
+}
+
+
+
 .lottie-left {
+    height:00px;
+    width:00px;
     position: absolute;
     left: 20px; /* You can adjust the left position to your liking */
     top: 50%; /* Centers the animation vertically in the section */

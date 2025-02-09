@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Lottie from 'react-lottie';
 import animationData from './images/Anim.json';
 import "./Home.css"
+import "./Phonehome.css"
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import logo from './images/LOGO.jpg';
 import first from './images/apptiter.jpg';
@@ -122,19 +123,27 @@ const Homepage = () => {
                     <li className="item"><a href="">Home</a></li>
                     <li className="item"><a href="">Services</a></li>
                     <li className="item"><a href="">About Us</a></li>
+                    {isLoggedIn ? (
+                            <li className="item">
+                                <i className="fa-solid fa-bars " onClick={toggleSidebar} id="sideicon"></i>
+                            </li>
+
+                        ) : (
+                            <li className="item"><a href="/login" onClick={handleLogin}>Log In</a></li>
+                        )}
                 </ul>
                 <div id="right">
 
-                    <ul>
+                    {/* <ul>
                         {isLoggedIn ? (
                             <li className="item">
                                 <i className="fa-solid fa-bars " onClick={toggleSidebar} id="sideicon"></i>
                             </li>
 
                         ) : (
-                            <li className="item"><a href="/login" onClick={handleLogin}>Login/Register</a></li>
+                            <li className="item"><a href="/login" onClick={handleLogin}>Log In</a></li>
                         )}
-                    </ul>
+                    </ul> */}
                     <div className={`bardata ${isSidebarOpen ? 'open' : 'closed'}`} id="barside">
                         <div className="box">
                             <i className="fa-solid fa-user"></i>
@@ -148,7 +157,7 @@ const Homepage = () => {
                         <hr />
                         <div className="box">
                             <i className="fa-solid fa-comment-dots"></i>
-                            <a href="">Chat Canteen</a>
+                            <a href="">Chat</a>
                         </div>
                         <hr />
                         <div className="box">
@@ -166,13 +175,13 @@ const Homepage = () => {
             <section id="home">
                 <h1 className="h-primary">Welcome to GEHU Canteen</h1>
                 <p>Variety of fast foods are available here at very afordable price . Every food is prepared with fresh items,</p>
-                <p>Proper hygine is maintained , best place to come with your family and friends</p>
+                <p id="none">Proper hygine is maintained , best place to come with your family and friends</p>
                 <button className="btn">Order Now</button>
             </section> <br /> <br /> <br /> <br /> <br /> <hr />
 
             <section id="menu">
                 <h2 align="center">* Our Specical Items *</h2>
-                <Lottie options={{ animationData }} height={400} width={400} />
+                <div className="lotti">< Lottie options={{ animationData }} style={{ margin: '0 auto' }}/></div>
 
                 <div className="menu-container">
                     <h1>Welcome to Gehu Canteen</h1>
@@ -188,3 +197,5 @@ const Homepage = () => {
 }
 
 export default Homepage;
+
+// height={400} width={400}
