@@ -1,0 +1,299 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    position: fixed; /* Fix the navbar to the top */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ensures it takes the full width */
+    z-index: 10; /* Keeps the navbar above other content */
+    background-color: rgba(0, 0, 0, 0.353); /* Optional: adds a transparent background for better readability */
+}
+
+
+#logo {
+    margin: 10px 34px;
+}
+
+#logo img {
+    height: 60px;
+    margin: 3px 6px;
+}
+
+.navbar ul {
+    display: flex;
+    /* margin-left: auto; Pushes the menu to the right */
+}
+
+#right {
+    margin-left: auto;
+}
+
+#right ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar ul li {
+    list-style: none;
+    font-size: 1.3rem;
+}
+
+.navbar ul li a {
+    color: white;
+    display: block;
+    text-decoration: none;
+    padding: 3px 22px;
+    border-radius: 20px;
+}
+
+.navbar ul li a:hover {
+    color: black;
+    background-color: white;
+}
+
+#home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 550px;
+    padding: 3px 200px;
+    padding-top: 80px; /* Ensures the content starts below the fixed navbar */
+}
+
+#home::before {
+    content: "";
+    background-image: url('./images/bg1.jpg');
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    left: 0;
+    top: 0;
+    height: 642px;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    opacity: 19.89;
+}
+
+#home h1 {
+    /* color: rgb(82, 245, 54); */
+    color: white;
+    text-align: center;
+    font-family: 'Bree Serif', serif;
+}
+
+#home p {
+    color: rgb(14, 90, 0);
+    background-color: rgb(200, 243, 243);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn:hover {
+    color: black;
+    background-color: rgb(255, 202, 77);
+}
+
+.btn {
+    padding: 6px 20px;
+    color: black;
+    background-color: rgb(255, 179, 0);
+    margin: 17px;
+    border: 2px solid white;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.h-primary {
+    font-size: 3.8rem;
+    padding: 12px;
+    font-family: 'Bree Serif', serif;
+}
+
+.h-primary h1 {
+    color: aqua;
+}
+
+h2 {
+    font-size: 2.8rem;
+}
+
+ #menu {
+    padding: 40px 0;
+    /* background-color: #33333376; */
+    background-color: #ff9a57;
+} 
+
+.lottie-left {
+    position: absolute;
+    left: 20px; /* You can adjust the left position to your liking */
+    top: 50%; /* Centers the animation vertically in the section */
+    transform: translateY(-50%); /* Ensures the element is perfectly centered vertically */
+    z-index: 10; /* To make sure the animation stays on top of other elements */
+}
+
+#barside{
+    height: fit-content;
+    top: 110px;
+    background-color: rgb(255, 165, 0);}
+
+
+  .bardata {
+    position: fixed;
+    /* height: 80vh; */
+    height: fit-content;
+    width: 270px;
+    top: 110px;
+    right: -270px;  /* Initially hide it to the left */
+    /* background: linear-gradient(135deg, #ff5d8e, #fa7690, #ff5d8e); */
+    background-color: rgb(255, 165, 0);
+    border: 2px solid black;
+    border-radius: 10px;
+    transition: transform 0.4s ease-in-out;  /* Smooth transition for sliding */
+    z-index: 5;
+}
+
+.bardata.open {
+    transform: translateX(-270px);  /* Slide in from the left */
+}
+
+.bardata.closed {
+    transform: translateX(0);  /* Slide back out to the left */
+}
+
+.box {
+    display: flex;
+    height: 7vh;
+    padding-left: 2vh;
+    align-items: center;
+}
+
+.box a {
+    padding-left: 3vh;
+    color: blue;
+    font-size: 1.3rem;
+}
+
+.box i {
+    font-size: 1.3rem;
+}
+
+#sideicon{
+    position: fixed;
+    right: 15px; /* Position from the left */
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+
+
+
+/* menu area */
+
+  .menu-container {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 600px;
+    max-width: 90%;
+    margin: 20px auto;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .tagline {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .menu-item {
+    margin-bottom: 25px;
+  }
+  
+  .menu-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background-color: #e67e22;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    transition: background-color 0.3s ease;
+    position: relative;
+  }
+  
+  .menu-title:hover {
+    background-color: #d35400;
+  }
+  
+  .menu-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+  
+  .menu-title h3 {
+    flex-grow: 1;
+    margin: 0;
+  }
+  
+  .menu-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+    padding: 0 15px;
+    background-color: #f0f0f0;
+    border-radius: 0 0 10px 10px;
+  }
+  
+  .menu-content p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  .menu-item.active .menu-content {
+    max-height: 200px;
+    opacity: 1;
+    padding-top: 10px;
+  }
+  
+  .arrow {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .menu-item.active .arrow {
+    transform: rotate(180deg);
+  }
+  
