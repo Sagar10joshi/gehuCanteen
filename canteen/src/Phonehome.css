@@ -15,7 +15,7 @@
 }
 
 .item a{
-    font-size: 0.7rem;
+    font-size: 0.8rem;
 }
 
 #sideicon{
@@ -37,8 +37,37 @@ h2 {
 
 .h-primary {
     font-size: 2.5rem;
-    margin-top: 200px;
+    margin-top: 80px;
     font-family: 'Bree Serif', serif;
+}
+.service-container{
+    margin-top: 10px;
+}
+
+#services {
+    flex-direction:column;
+    margin: 6px;
+}
+
+#secvices .box{
+    margin: 3px 30px;
+    padding: 14px;
+    margin-bottom: 20px;
+} 
+
+#services .box p{
+    font-size: 0.8rem;
+  }
+
+.h-sec{
+    font-size: 1.3rem;
+    padding: 6px;
+    
+}
+
+#services .box img{
+    height: 90px;
+    width: 100px;
 }
 
 /* .h-primary center{
@@ -51,6 +80,7 @@ h2 {
  
  .navbar{
     flex-direction: column;
+    /* height: fit-content; */
 } 
 
 .bardata{
@@ -77,6 +107,22 @@ h2 {
 .menu-container h1{
     font-size: 1.7rem;
 }
+
+.footer-section h2{
+    font-size: 1.4rem;
+}
+
+.footer-section h3{
+    font-size: 0.8rem;
+}
+
+.footer-section p{
+    font-size: 0.5rem;
+}
+
+.social-icons a{
+    font-size: 10px;
+  }
 
 }
 

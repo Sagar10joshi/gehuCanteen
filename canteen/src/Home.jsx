@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { Suspense, lazy } from 'react';
 import Lottie from 'react-lottie';
 import animationData from './images/Anim.json';
 import "./Home.css"
@@ -15,7 +16,7 @@ import 'font-awesome/css/font-awesome.min.css';
 const menuData = [
     {
         title: "Appetizers",
-        image :first,
+        // image: first,
         items: [
             "Spring Rolls: $5.00",
             "Garlic Bread: $4.00",
@@ -24,7 +25,7 @@ const menuData = [
     },
     {
         title: "Main Course",
-        image: sec,
+        // image: sec,
         items: [
             "Grilled Chicken: $12.00",
             "Spaghetti Bolognese: $10.00",
@@ -33,7 +34,7 @@ const menuData = [
     },
     {
         title: "Desserts",
-        image: third,
+        // image: third ,
         items: [
             "Chocolate Cake: $7.00",
             "Ice Cream Sundae: $5.50",
@@ -42,7 +43,7 @@ const menuData = [
     },
     {
         title: "Beverages",
-        image: four,
+        // image: four,
         items: [
             "Coffee: $3.00",
             "Fresh Juice: $4.00",
@@ -56,6 +57,8 @@ const Homepage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const navigate = useNavigate(); // Correctly defined here
+    const serviceRef = useRef(null);
+    const LottieAnimation = lazy(() => import('react-lottie'));
 
     // Check if the user is logged in from localStorage on component mount
     useEffect(() => {
@@ -64,6 +67,18 @@ const Homepage = () => {
             setIsLoggedIn(true);
         }
     }, []);
+
+    const scrollToSection = (sectionRef) => {
+        setTimeout(() => {
+            const offset = 100; // Adjust this value based on your navbar height
+            const top = sectionRef.current.getBoundingClientRect().top + window.pageYOffset - offset;
+
+            window.scrollTo({
+                top,
+                behavior: 'smooth',
+            });
+        }, 10);  // Small delay to ensure smooth scroll
+    };
 
     // Simulate login and store the state in localStorage
     const handleLogin = () => {
@@ -100,7 +115,7 @@ const Homepage = () => {
         return (
             <div className={`menu-item ${isActive ? "active" : ""}`}>
                 <div className="menu-title" onClick={toggleMenu}>
-                    <img src={image} alt={title} className="menu-image" />
+                    <img src={image} alt={title} className="menu-image" loading="lazy"/>
                     <h3>{title}</h3>
                     <span className="arrow">{isActive ? "▲" : "▼"}</span>
                 </div>
@@ -121,16 +136,16 @@ const Homepage = () => {
                 </div>
                 <ul>
                     <li className="item"><a href="">Home</a></li>
-                    <li className="item"><a href="">Services</a></li>
+                    <li className="item"><a href="" onClick={(e) => { e.preventDefault(); scrollToSection(serviceRef); }}>Services</a></li>
                     <li className="item"><a href="">About Us</a></li>
                     {isLoggedIn ? (
-                            <li className="item">
-                                <i className="fa-solid fa-bars " onClick={toggleSidebar} id="sideicon"></i>
-                            </li>
+                        <li className="item">
+                            <i className="fa-solid fa-bars " onClick={toggleSidebar} id="sideicon"></i>
+                        </li>
 
-                        ) : (
-                            <li className="item"><a href="/login" onClick={handleLogin}>Log In</a></li>
-                        )}
+                    ) : (
+                        <li className="item"><a href="/login" onClick={handleLogin}>Log In</a></li>
+                    )}
                 </ul>
                 <div id="right">
 
@@ -173,7 +188,7 @@ const Homepage = () => {
                 </div>
             </div>
             <section id="home">
-                <h1 className="h-primary">Welcome to GEHU Canteen</h1>
+                <br /> <br /><h1 className="h-primary">Welcome to GEHU Canteen</h1>
                 <p>Variety of fast foods are available here at very afordable price . Every food is prepared with fresh items,</p>
                 <p id="none">Proper hygine is maintained , best place to come with your family and friends</p>
                 <button className="btn">Order Now</button>
@@ -181,7 +196,13 @@ const Homepage = () => {
 
             <section id="menu">
                 <h2 align="center">* Our Specical Items *</h2>
-                <div className="lotti">< Lottie options={{ animationData }} style={{ margin: '0 auto' }}/></div>
+                {/* <div className="lotti">< Lottie options={{ animationData }} style={{ margin: '0 auto' }} /></div> */}
+
+                <div className="lotti">
+                <Suspense fallback={<div>Loading animation...</div>}>
+                    <LottieAnimation options={{ animationData }} style={{ margin: '0 auto' }} />
+                </Suspense>
+                </div>
 
                 <div className="menu-container">
                     <h1>Welcome to Gehu Canteen</h1>
@@ -192,6 +213,63 @@ const Homepage = () => {
                 </div>
 
             </section>
+
+            <section className="service-container">
+                <h1 className="h-primary center" id="shadow" ref={serviceRef}>~ Our Services ~</h1>
+                <div id="services">
+                    <div className="box">
+                        <img src={sec} alt="Sagar Joshi" loading="lazy" />
+                        <h2 className="h-sec center">Food Ordering</h2>
+                        <p className="center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae cum debitis corporis
+                            laborum dolorem quidem ipsum praesentium fuga saepe deserunt!Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Eum placeat officia quasi atque debitis nemo fugit fugiat molestiae, quis sequi
+                            velit id magni!</p>
+                    </div>
+                    <div className="box">
+                        <img src={sec} alt="Sagar Joshi" loading="lazy"/>
+                        <h2 className="h-sec center">Food Catering</h2>
+                        <p className="center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae cum debitis corporis
+                            laborum dolorem quidem ipsum praesentium fuga saepe deserunt!Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Eum placeat officia quasi atque debitis nemo fugit fugiat molestiae, quis sequi
+                            velit id magni!</p>
+                    </div>
+                    <div className="box">
+                        <img src={sec} alt="Sagar Joshi" loading="lazy"/>
+                        <h2 className="h-sec center">Bulk Ordering</h2>
+                        <p className="center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae cum debitis corporis
+                            laborum dolorem quidem ipsum praesentium fuga saepe deserunt!Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Eum placeat officia quasi atque debitis nemo fugit fugiat molestiae, quis sequi
+                            velit id magni!</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <footer className="footer">
+                <div className="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i className="fas fa-map-marker-alt"></i> Location</p>
+                    <p><i className="fas fa-phone"></i> Call +91 9897035395</p>
+                    <p><i className="fas fa-envelope"></i> Glacanteen@yahoo.in</p>
+                </div>
+
+                <div className="footer-section">
+                    <h2>Gehu Canteen</h2>
+                    <p>Our canteen is a haven for food enthusiasts, offering an extensive selection of delectable vegetarian dishes bursting with flavor and freshness.</p> <br /> <br />
+                    <div className="social-icons">
+                        <a href=""><i className="fab fa-facebook"></i></a>
+                        <a href=""><i className="fab fa-twitter"></i></a>
+                        <a href=""><i className="fab fa-linkedin"></i></a>
+                        <a href=""><i className="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div className="footer-section">
+                    <h3>Opening Hours</h3>
+                    <p>Everyday</p>
+                    <p>10.00 AM - 11.00 PM</p>
+                </div>
+            </footer>
         </>
     )
 }
