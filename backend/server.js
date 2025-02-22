@@ -14,11 +14,22 @@ app.use(express.urlencoded({ extended: false }))
 const server = http.createServer(app);
 
 // ✅ Enable CORS for Express
-app.use(cors({
-  origin: 'http://localhost:5173', // Replace with the URL of your frontend
-  credentials: true,               // Allow credentials (cookies)
-  methods: ["GET", "POST"]
-}));
+// app.use(cors({
+//   origin: 'http://localhost:5173', // Replace with the URL of your frontend
+//   credentials: true,               // Allow credentials (cookies)
+//   methods: ["GET", "POST"]
+// }));
+
+const corsOptions = {
+  origin: 'https://gehu-canteen.vercel.app',  // Allow only your frontend domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true  // Allow cookies or credentials if needed
+};
+
+// Apply CORS middleware to all routes
+app.use(cors(corsOptions)); 
+
 
 app.get('/', (req, res) => {
   res.json("Welcome to Server")
@@ -114,7 +125,7 @@ app.post('/login', async (req, res) => {
 // ✅ Enable CORS for Socket.io
 const io = new Server(server, {
   cors: {
-    origin: "*",  // Allow all origins temporarily
+    origin: "https://gehu-canteen.vercel.app",  // Allow all origins temporarily
     methods: ["GET", "POST"]
   }
 });
@@ -139,5 +150,7 @@ io.on("connection", (socket) => {
 
 dbConnect()
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+export default app;
+
+// const PORT = process.env.PORT || 5000;
+// server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
