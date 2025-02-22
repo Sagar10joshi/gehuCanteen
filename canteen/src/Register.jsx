@@ -50,6 +50,7 @@ const Register = () => {
         // credentials: "include", // Include cookies
         headers: {
           'Content-Type': 'application/json',
+          // 'Authorization': `Bearer ${token}`,  // if you're sending a JWT
         },
         body: JSON.stringify({ name, email, password,confirmPassword, role }), // Send the role in request
       });
