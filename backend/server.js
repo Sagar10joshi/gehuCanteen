@@ -126,7 +126,8 @@ app.post('/login', async (req, res) => {
 const io = new Server(server, {
   cors: {
     origin: "https://gehu-canteen.vercel.app",  // Allow all origins temporarily
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST"],
+    credentials: true, // Allow credentials (cookies)
   }
 });
 
