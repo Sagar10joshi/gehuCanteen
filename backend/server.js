@@ -125,7 +125,7 @@ app.post('/login', async (req, res) => {
 // ✅ Enable CORS for Socket.io
 const io = new Server(server, {
   cors: {
-    origin: "*",  // Allow all origins temporarily
+    origin: "https://gehu-canteen.vercel.app",  // Allow all origins temporarily
     methods: ["GET", "POST"]
   }
 });
