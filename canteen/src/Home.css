@@ -190,14 +190,22 @@ h2 {
     transform: translateX(0);  /* Slide back out to the left */
 }
 
-.box {
+.box1 {
     display: flex;
     height: 7vh;
     padding-left: 2vh;
     align-items: center;
-      position: relative;
-      transition: transform 0.3s ease; /* Smooth transition */
-      box-shadow: 0px 4px 8px rgb(249, 158, 67); /* Initial shadow */
+    position: relative;
+}
+
+.box {
+  display: flex;
+  height: 7vh;
+  padding-left: 2vh;
+  align-items: center;
+    position: relative;
+    transition: transform 0.3s ease; /* Smooth transition */
+    box-shadow: 0px 4px 8px rgb(249, 158, 67); /* Initial shadow */
 }
 
 .box:hover {
@@ -205,13 +213,13 @@ h2 {
   box-shadow: 0px 10px 20px rgb(246, 150, 24); /* Shadow intensifies on hover */
 }
 
-.box a {
+.box1 a {
     padding-left: 3vh;
     color: blue;
     font-size: 1.3rem;
 }
 
-.box i {
+.box1 i {
     font-size: 1.3rem;
 }
 

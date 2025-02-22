@@ -5,6 +5,7 @@ const MyCart = () => {
   const [cart, setCart] = useState([
     { id: 1, name: "Chole Bhature", price: 40, quantity: 1, image: "chole.jpg" },
     { id: 2, name: "Pav Bhaji", price: 20, quantity: 4, image: "pav.jpg" },
+    { id: 3, name: " Bhaji", price: 20, quantity: 4, image: "pav.jpg" },
   ]);
 
   const handleRemove = (id) => {

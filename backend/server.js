@@ -62,6 +62,7 @@ app.post('/register', async (req, res) => {
     // Return a successful response
     return res.status(200).json({
       message: 'Registration successful!',
+      role: newUser.role,
       redirect: '/login' // Redirect after successful registration
     });
 
@@ -77,7 +78,9 @@ app.post('/login', async (req, res) => {
   try {
     const { name, password } = req.body;
 
-      const userlogin = await User.findOne({ name: name });
+      const userlogin = await User.findOne({ name: name });     
+
+      // console.log(userlogin)
 
       if (!userlogin) {
           return res.status(401).json({ message: 'Invalid credentials' });
@@ -93,7 +96,10 @@ app.post('/login', async (req, res) => {
 
       return res.status(200).json({
           message: 'Login successful',
+          name: userlogin.name ,  // Send username
+          userId: userlogin._id,
           token,
+          role: userlogin.role, // Send the role
           redirect: '/' // Redirect after login
       });
 
@@ -116,7 +122,7 @@ const io = new Server(server, {
 let messages = []; // Temporary storage for messages
 
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
+  // console.log("User connected:", socket.id);
 
   socket.on("sendMessage", ({ sender, userId, message }) => {
     const newMessage = { sender, userId, message };
@@ -127,7 +133,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
+    // console.log("User disconnected:", socket.id);
   });
 });
 

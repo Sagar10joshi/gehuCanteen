@@ -59,6 +59,10 @@ const Register = () => {
       if (response.ok) {
         alert("Registration Successfull");
         setSuccessMessage('Registration successful!');
+
+        localStorage.setItem("role", JSON.stringify({role}));
+        // console.log(role);
+        
         // sessionStorage.setItem('token', data.token);
         if (data.redirect) {
           // Assuming navigate function exists or react-router is used
@@ -130,6 +134,8 @@ const Register = () => {
 
           <button type="submit">Sign up</button>
         </form>
+
+
 
         {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
         {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}

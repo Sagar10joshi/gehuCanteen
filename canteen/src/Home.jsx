@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Suspense, lazy } from 'react';
 import Lottie from 'react-lottie';
+// import { Lottie } from 'react-lottie-player';
 import animationData from './images/Anim.json';
 import "./Home.css"
 import "./Phonehome.css"
@@ -18,26 +19,27 @@ const menuData = [
         title: "Appetizers",
         // image: first,
         items: [
-            "Spring Rolls: $5.00",
-            "Garlic Bread: $4.00",
-            "Stuffed Mushrooms: $6.50",
+            "Bread Pakoda: $5.00",
+            "Chole Samose: $4.00",
+            "Masala Noodles: $6.50",
+            "Aaloo Paratha: $6.50"
         ],
     },
     {
         title: "Main Course",
         // image: sec,
         items: [
-            "Grilled Chicken: $12.00",
-            "Spaghetti Bolognese: $10.00",
-            "Vegetable Stir-fry: $9.50",
+            "Chole Chawal: $12.00",
+            "Chole Bhature: $10.00",
+            "Fried Rice: $9.50",
         ],
     },
     {
         title: "Desserts",
         // image: third ,
         items: [
-            "Chocolate Cake: $7.00",
-            "Ice Cream Sundae: $5.50",
+            "Choclates: $7.00",
+            "Ice Cream : $5.50",
             "Fruit Salad: $4.50",
         ],
     },
@@ -48,11 +50,20 @@ const menuData = [
             "Coffee: $3.00",
             "Fresh Juice: $4.00",
             "Soft Drinks: $2.50",
+            "Chai: $6.50"
         ],
     },
 ];
 
 const Homepage = () => {
+
+    // Get user details from localStorage
+    const users = JSON.parse(localStorage.getItem("role"));
+//   console.log(users);
+  
+
+  // Determine the chat route based on user role
+  const chatRoute = users?.role === "owner" ? "/owner" : "/chat";
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -92,6 +103,7 @@ const Homepage = () => {
     const handleLogout = () => {
         // Clear session storage
         sessionStorage.removeItem("token");
+        localStorage.removeItem("role");
 
         // Update the state to reflect that the user is logged out
         setIsLoggedIn(false);
@@ -115,11 +127,11 @@ const Homepage = () => {
         return (
             <div className={`menu-item ${isActive ? "active" : ""}`}>
                 <div className="menu-title" onClick={toggleMenu}>
-                    <img src={image} alt={title} className="menu-image" loading="lazy"/>
+                    <img src={image} alt={title} className="menu-image" loading="lazy" />
                     <h3>{title}</h3>
                     <span className="arrow">{isActive ? "▲" : "▼"}</span>
                 </div>
-                <div className="menu-content" style={{ maxHeight: isActive ? "120px" : "0" }}>
+                <div className="menu-content" style={{ maxHeight: isActive ? "140px" : "0" }}>
                     {items.map((item, index) => (
                         <p key={index}>{item}</p>
                     ))}
@@ -148,39 +160,29 @@ const Homepage = () => {
                     )}
                 </ul>
                 <div id="right">
-
-                    {/* <ul>
-                        {isLoggedIn ? (
-                            <li className="item">
-                                <i className="fa-solid fa-bars " onClick={toggleSidebar} id="sideicon"></i>
-                            </li>
-
-                        ) : (
-                            <li className="item"><a href="/login" onClick={handleLogin}>Log In</a></li>
-                        )}
-                    </ul> */}
                     <div className={`bardata ${isSidebarOpen ? 'open' : 'closed'}`} id="barside">
-                        <div className="box">
+                        <div className="box1">
                             <i className="fa-solid fa-user"></i>
                             <a href="">My Profile</a>
                         </div>
                         <hr />
-                        <div className="box">
+                        <div className="box1">
                             <i className="fa-solid fa-cart-shopping"></i>
                             <a href="/mycart">My Cart</a>
                         </div>
                         <hr />
-                        <div className="box">
+                        <div className="box1">
                             <i className="fa-solid fa-comment-dots"></i>
-                            <a href="">Chat</a>
+                            {/* <a href="/chat">Chat</a> */}
+                            <a href={chatRoute}>Chat</a>
                         </div>
                         <hr />
-                        <div className="box">
+                        <div className="box1">
                             <i className="fa-solid fa-comment-dots"></i>
                             <a href="">My Orders</a>
                         </div>
                         <hr />
-                        <div className="box">
+                        <div className="box1">
                             <i className="fa-solid fa-right-from-bracket"></i>
                             <a href="" onClick={handleLogout}>Logout</a>
                         </div>
@@ -196,13 +198,17 @@ const Homepage = () => {
 
             <section id="menu">
                 <h2 align="center">* Our Specical Items *</h2>
-                {/* <div className="lotti">< Lottie options={{ animationData }} style={{ margin: '0 auto' }} /></div> */}
-
+                <div className="lotti">< Lottie options={{ animationData }} style={{ margin: '0 auto' }} /></div>
+                {/* 
                 <div className="lotti">
-                <Suspense fallback={<div>Loading animation...</div>}>
+                    <Suspense fallback={<div>Loading animation...</div>}>
                     <LottieAnimation options={{ animationData }} style={{ margin: '0 auto' }} />
                 </Suspense>
-                </div>
+
+                    {/* <Suspense fallback={<div>Loading animation...</div>}>
+                        <Lottie options={{ animationData }} isStopped={!animationLoaded} />
+                    </Suspense> 
+                </div> */}
 
                 <div className="menu-container">
                     <h1>Welcome to Gehu Canteen</h1>
@@ -226,7 +232,7 @@ const Homepage = () => {
                             velit id magni!</p>
                     </div>
                     <div className="box">
-                        <img src={sec} alt="Sagar Joshi" loading="lazy"/>
+                        <img src={sec} alt="Sagar Joshi" loading="lazy" />
                         <h2 className="h-sec center">Food Catering</h2>
                         <p className="center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae cum debitis corporis
                             laborum dolorem quidem ipsum praesentium fuga saepe deserunt!Lorem ipsum dolor sit amet consectetur
@@ -234,7 +240,7 @@ const Homepage = () => {
                             velit id magni!</p>
                     </div>
                     <div className="box">
-                        <img src={sec} alt="Sagar Joshi" loading="lazy"/>
+                        <img src={sec} alt="Sagar Joshi" loading="lazy" />
                         <h2 className="h-sec center">Bulk Ordering</h2>
                         <p className="center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae cum debitis corporis
                             laborum dolorem quidem ipsum praesentium fuga saepe deserunt!Lorem ipsum dolor sit amet consectetur
@@ -275,5 +281,3 @@ const Homepage = () => {
 }
 
 export default Homepage;
-
-// height={400} width={400}

@@ -42,9 +42,27 @@ const Login = () => {
             });
 
             const data = await response.json();
-            console.log('Response Data:', data); // Log the response for debugging
+            // console.log('Response Data:', data); // Log the response for debugging
 
             if (response.ok) {
+                // localStorage.setItem("user", JSON.stringify({ username: data.name, userId: data.userId }));
+
+                const userData = {
+                    userId: data.userId ,  // Fallback in case userId is missing
+                    username: data.name
+                  };
+                  //this is for username in chat
+                  localStorage.setItem("user", JSON.stringify(userData));
+
+                  const roleinfo = {
+                    role: data.role 
+                  }
+
+                  //this is for correct routing of user and owner
+                  localStorage.setItem("role", JSON.stringify(roleinfo));
+                //   console.log("Saved user:", localStorage.getItem("role"));
+
+
                 setSuccessMessage('Logged in successful!');
                 // Store the token in sessionStorage (or localStorage for persistence)
                 sessionStorage.setItem('token', data.token);
