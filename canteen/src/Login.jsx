@@ -32,7 +32,7 @@ const Login = () => {
         }
 
         try {
-            const response = await fetch('https://gehu-canteen-5ni8.vercel.app/login', {
+            const response = await fetch('https://gehu-canteen-5ni8-sagars-projects-0f20619e.vercel.app/login', {
                 method: 'POST',
                 credentials: "include", // Include cookies
                 headers: {

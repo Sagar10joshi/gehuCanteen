@@ -9,8 +9,7 @@ import { User } from "./api/registerModel.js";
 import { error } from "console";
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }))
+
 const server = http.createServer(app);
 
 // ✅ Enable CORS for Express
@@ -21,14 +20,16 @@ const server = http.createServer(app);
 // }));
 
 const corsOptions = {
-  origin: ['https://gehu-canteen.vercel.app'],  // Allow only your frontend domain
+  origin: 'https://gehu-canteen.vercel.app',  // Allow only your frontend domain
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true  // Allow cookies or credentials if needed
 };
 
 // Apply CORS middleware to all routes
 app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
 
 
 
@@ -159,7 +160,7 @@ io.on("connection", (socket) => {
 
 dbConnect()
 
-export default app;
+export default Server;
 
 // const PORT = process.env.PORT || 5000;
 // server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
