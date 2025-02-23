@@ -59,7 +59,7 @@ const Homepage = () => {
 
     // Get user details from localStorage
     const users = JSON.parse(localStorage.getItem("role"));
-  console.log(role);
+    console.log("Saved user:", localStorage.getItem("role"));
   
 
   // Determine the chat route based on user role
