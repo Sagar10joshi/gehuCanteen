@@ -28,7 +28,7 @@ const corsOptions = {
 };
 
 // Apply CORS middleware to all routes
-app.use(cors(corsOptions)); 
+app.use(cors(corsOptions));
 
 
 app.get('/', (req, res) => {
@@ -89,34 +89,34 @@ app.post('/login', async (req, res) => {
   try {
     const { name, password } = req.body;
 
-      const userlogin = await User.findOne({ name: name });     
+    const userlogin = await User.findOne({ name: name });
 
-      // console.log(userlogin)
+    // console.log(userlogin)
 
-      if (!userlogin) {
-          return res.status(401).json({ message: 'Invalid credentials' });
-      }
+    if (!userlogin) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
 
-      const isMatch = await bcrypt.compare(password, userlogin.password); // Compare hashed password
-      if (!isMatch) {
-          return res.status(401).json({ message: 'Invalid credentials' });
-      }
+    const isMatch = await bcrypt.compare(password, userlogin.password); // Compare hashed password
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
 
-      // Generate a JWT token
-      const token = jwt.sign({ name: userlogin.name }, '321', { expiresIn: '1h' });
+    // Generate a JWT token
+    const token = jwt.sign({ name: userlogin.name }, '321', { expiresIn: '1h' });
 
-      return res.status(200).json({
-          message: 'Login successful',
-          name: userlogin.name ,  // Send username
-          userId: userlogin._id,
-          token,
-          role: userlogin.role, // Send the role
-          redirect: '/' // Redirect after login
-      });
+    return res.status(200).json({
+      message: 'Login successful',
+      name: userlogin.name,  // Send username
+      userId: userlogin._id,
+      token,
+      role: userlogin.role, // Send the role
+      redirect: '/' // Redirect after login
+    });
 
   } catch (error) {
-      console.error('Login error:', error);
-      res.status(500).send('An error occurred during login');
+    console.error('Login error:', error);
+    res.status(500).send('An error occurred during login');
   }
 });
 
@@ -126,7 +126,8 @@ app.post('/login', async (req, res) => {
 const io = new Server(server, {
   cors: {
     origin: "https://gehu-canteen.vercel.app",  // Allow all origins temporarily
-    methods: ["GET", "POST"],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // Allow credentials (cookies)
   }
 });
