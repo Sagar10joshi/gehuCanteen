@@ -7,10 +7,10 @@ import Register from "./Register";
 import Login from "./Login";
 import MyCart from "./Mycart";
 
-// const isOwner = () => {
-//   const user = JSON.parse(localStorage.getItem("role"));
-//   return user && user.role === "owner"; // Check if the user is an owner
-// };
+const isOwner = () => {
+  const user = JSON.parse(localStorage.getItem("role"));
+  return user && user.role === "owner"; // Check if the user is an owner
+};
 
 function App() {
 
@@ -21,9 +21,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/mycart" element={<MyCart />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/chat" element={<Chat />} /> */}
+        <Route path="/chat" element={<Chat />} />
         {/* <Route path="/owner" element={<OwnerChat />} />  */}
-        {/* <Route path="/owner" element={isOwner() ? <OwnerChat /> : <Navigate to="/" />}/> */}
+        <Route path="/owner" element={isOwner() ? <OwnerChat /> : <Navigate to="/" />}/>
       </Routes>
     </Router>
   )
