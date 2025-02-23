@@ -10,7 +10,7 @@ import { error } from "console";
 
 const app = express();
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
 // ✅ Enable CORS for Express
 // app.use(cors({
