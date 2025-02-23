@@ -20,19 +20,47 @@ const server = http.createServer(app);
 //   methods: ["GET", "POST"]
 // }));
 
+// const corsOptions = {
+//   origin: ['https://gehu-canteen.vercel.app','https://gehu-canteen-git-main-sagars-projects-0f20619e.vercel.app','https://gehu-canteen-31uq60s6n-sagars-projects-0f20619e.vercel.app'],  // Allow only your frontend domain
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   credentials: true  // Allow cookies or credentials if needed
+// };
+
+// // Apply CORS middleware to all routes
+// app.use(cors(corsOptions));
+
+const allowedOrigins = [
+  "https://gehu-canteen.vercel.app", 
+  "https://gehu-canteen-5ni8-sagars-projects-0f20619e.vercel.app", 
+  "http://localhost:5173"  // Allow localhost for testing
+];
+
 const corsOptions = {
-  origin: 'https://gehu-canteen.vercel.app',  // Allow only your frontend domain
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true  // Allow cookies or credentials if needed
+  credentials: true
 };
 
-// Apply CORS middleware to all routes
 app.use(cors(corsOptions));
+
+
+
 
 
 app.get('/', (req, res) => {
   res.json("Welcome to Server")
+})
+
+app.get('/login', (req, res) => {
+  res.json("Welcome to Login page")
 })
 
 
