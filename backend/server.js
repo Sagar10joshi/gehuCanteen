@@ -21,7 +21,7 @@ const server = http.createServer(app);
 // }));
 
 const corsOptions = {
-  origin: ['*'],  // Allow only your frontend domain
+  origin: ['https://gehu-canteen.vercel.app'],  // Allow only your frontend domain
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true  // Allow cookies or credentials if needed
@@ -132,7 +132,7 @@ app.post('/login', async (req, res) => {
 // ✅ Enable CORS for Socket.io
 const io = new Server(server, {
   cors: {
-    origin: "*",  // Allow all origins temporarily
+    origin: "https://gehu-canteen.vercel.app/",  // Allow all origins temporarily
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // Allow credentials (cookies)
