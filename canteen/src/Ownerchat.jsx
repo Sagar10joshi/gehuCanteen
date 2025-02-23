@@ -180,7 +180,7 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 
-const socket = io("https://gehu-canteen-5ni8-sagars-projects-0f20619e.vercel.app", { transports: ["websocket"],withCredentials: true });
+const socket = io("https://gehu-canteen-5ni8.vercel.app", { transports: ["websocket"],withCredentials: true });
 
 const OwnerChat = () => {
   const [messages, setMessages] = useState([]);
