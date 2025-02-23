@@ -137,33 +137,33 @@ app.post('/login', async (req, res) => {
 
 
 
-// ✅ Enable CORS for Socket.io
-const io = new Server(server, {
-  cors: {
-    origin: "https://gehu-canteen.vercel.app/",  // Allow all origins temporarily
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true, // Allow credentials (cookies)
-  }
-});
+// // ✅ Enable CORS for Socket.io
+// const io = new Server(server, {
+//   cors: {
+//     origin: "https://gehu-canteen.vercel.app/",  // Allow all origins temporarily
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type', 'Authorization'],
+//     credentials: true, // Allow credentials (cookies)
+//   }
+// });
 
-let messages = []; // Temporary storage for messages
+// let messages = []; // Temporary storage for messages
 
-io.on("connection", (socket) => {
-  // console.log("User connected:", socket.id);
+// io.on("connection", (socket) => {
+//   // console.log("User connected:", socket.id);
 
-  socket.on("sendMessage", ({ sender, userId, message }) => {
-    const newMessage = { sender, userId, message };
-    messages.push(newMessage);
+//   socket.on("sendMessage", ({ sender, userId, message }) => {
+//     const newMessage = { sender, userId, message };
+//     messages.push(newMessage);
 
-    // Send message to all clients (including owner)
-    io.emit("receiveMessage", newMessage);
-  });
+//     // Send message to all clients (including owner)
+//     io.emit("receiveMessage", newMessage);
+//   });
 
-  socket.on("disconnect", () => {
-    // console.log("User disconnected:", socket.id);
-  });
-});
+//   socket.on("disconnect", () => {
+//     // console.log("User disconnected:", socket.id);
+//   });
+// });
 
 dbConnect()
 
