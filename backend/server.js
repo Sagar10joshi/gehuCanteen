@@ -23,7 +23,7 @@ const server = http.createServer(app);
 const corsOptions = {
   origin: ['https://gehu-canteen.vercel.app'],  // Allow only your frontend domain
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type'],
   credentials: true  // Allow cookies or credentials if needed
 };
 

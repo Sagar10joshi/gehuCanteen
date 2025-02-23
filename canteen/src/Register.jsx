@@ -47,7 +47,7 @@ const Register = () => {
     try {
       const response = await fetch('https://gehu-canteen-5ni8-sagars-projects-0f20619e.vercel.app/register', {
         method: 'POST',
-        // credentials: "include", // Include cookies
+        credentials: "include", // Include cookies
         headers: {
           'Content-Type': 'application/json',
           // 'Authorization': `Bearer ${token}`,  // if you're sending a JWT
