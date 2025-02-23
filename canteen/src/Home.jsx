@@ -59,7 +59,7 @@ const Homepage = () => {
 
     // Get user details from localStorage
     const users = JSON.parse(localStorage.getItem("role"));
-  console.log(users);
+  console.log(role);
   
 
   // Determine the chat route based on user role
@@ -103,8 +103,8 @@ const Homepage = () => {
     const handleLogout = () => {
         // Clear session storage
         sessionStorage.removeItem("token");
-
-        localStorage.removeItem("users");
+        localStorage.removeItem("role");
+        localStorage.removeItem("user");
 
         // Update the state to reflect that the user is logged out
         setIsLoggedIn(false);
