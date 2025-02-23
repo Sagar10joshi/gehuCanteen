@@ -95,6 +95,13 @@ app.post('/register', async (req, res) => {
 
 app.post('/login', async (req, res) => {
   try {
+
+     // Set CORS headers for this specific route
+     res.setHeader('Access-Control-Allow-Origin', 'https://gehu-canteen.vercel.app');
+     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+     res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     const { name, password } = req.body;
 
     const userlogin = await User.findOne({ name: name });
