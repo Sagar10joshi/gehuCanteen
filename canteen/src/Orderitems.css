@@ -1,0 +1,389 @@
+/* Grid layout */
+.canteen-order-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  
+  @media (min-width: 768px) {
+    .canteen-order-grid {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+  
+  /* Menu section */
+  .canteen-section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  /* Category filter buttons */
+  .canteen-category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .canteen-category-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    background-color: #f3f4f6;
+    border: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .canteen-category-btn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: rgba(59, 130, 246, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+    z-index: 0;
+  }
+  
+  .canteen-category-btn:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .canteen-category-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .canteen-category-btn.active {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  .canteen-menu-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    margin-bottom: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .canteen-menu-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* Menu card */
+  .canteen-menu-card {
+    overflow: hidden;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .canteen-menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .canteen-menu-card-content {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .canteen-menu-image {
+    border-radius: 0.375rem;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .canteen-menu-card:hover .canteen-menu-image {
+    transform: scale(1.05);
+  }
+  
+  .canteen-menu-details {
+    margin-left: 1rem;
+    flex: 1;
+  }
+  
+  .canteen-menu-item-title {
+    font-weight: 500;
+    margin: 0 0 0.25rem 0;
+  }
+  
+  .canteen-menu-item-desc {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .canteen-menu-item-footer {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .canteen-menu-item-price {
+    font-weight: 500;
+  }
+  
+  .canteen-add-btn {
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .canteen-add-btn::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+  }
+  
+  .canteen-add-btn:hover::after {
+    animation: ripple 1s ease-out;
+  }
+  
+  @keyframes ripple {
+    0% {
+      transform: scale(0, 0);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(20, 20);
+      opacity: 0;
+    }
+  }
+  
+  .canteen-add-btn:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+  }
+  
+  .canteen-add-btn:active {
+    transform: translateY(0);
+  }
+  
+  /* Cart section */
+  .canteen-cart-section {
+    position: relative;
+  }
+  
+  .canteen-cart-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 5rem;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .canteen-cart-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .canteen-cart-content {
+    padding: 1.5rem;
+  }
+  
+  .canteen-cart-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .canteen-cart-empty {
+    color: #6b7280;
+  }
+  
+  .canteen-cart-items {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .canteen-cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .canteen-cart-item-name {
+    font-weight: 500;
+    margin: 0 0 0.25rem 0;
+  }
+  
+  .canteen-cart-item-price {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+  }
+  
+  .canteen-cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .canteen-quantity-btn {
+    height: 2rem;
+    width: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .canteen-quantity-btn:hover {
+    background-color: #f3f4f6;
+    transform: scale(1.05);
+  }
+  
+  .canteen-icon-small {
+    height: 1rem;
+    width: 1rem;
+  }
+  
+  .canteen-quantity-value {
+    width: 2rem;
+    text-align: center;
+  }
+  
+  .canteen-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  
+  .canteen-cart-separator {
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 1rem 0;
+  }
+  
+  .canteen-cart-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .canteen-cart-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .canteen-cart-taxes {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  .canteen-cart-total {
+    font-weight: 700;
+  }
+  
+  .canteen-place-order-btn {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.625rem;
+    border-radius: 0.375rem;
+    background-color: #3b82f6;
+    color: white;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .canteen-place-order-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+  }
+  
+  .canteen-place-order-btn:hover::before {
+    left: 100%;
+  }
+  
+  .canteen-place-order-btn:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .canteen-place-order-btn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  
