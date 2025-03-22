@@ -1,4 +1,4 @@
-* {
+/* * {
     margin: 0;
     padding: 0;
 }
@@ -7,12 +7,12 @@
     display: flex;
     align-items: center;
     font-family: 'Poppins', sans-serif;
-    position: fixed; /* Fix the navbar to the top */
+    position: fixed; 
     top: 0;
     left: 0;
-    width: 100%; /* Ensures it takes the full width */
-    z-index: 10; /* Keeps the navbar above other content */
-    background-color: rgba(0, 0, 0, 0.353); /* Optional: adds a transparent background for better readability */
+    width: 100%; 
+    z-index: 10; 
+    background-color: rgba(0, 0, 0, 0.353); 
 }
 
 
@@ -27,12 +27,8 @@
 
 .navbar ul {
     display: flex;
-    /* margin-left: auto;  */
 }
 
-/* #right {
-    margin-left: auto;
-} */
 
 #right ul {
     display: flex;
@@ -66,7 +62,7 @@
     flex-direction: column;
     height: 550px;
     padding: 3px 200px;
-    padding-top: 80px; /* Ensures the content starts below the fixed navbar */
+    padding-top: 80px; 
 }
 
 #home::before {
@@ -88,7 +84,6 @@
 }
 
 #home h1 {
-    /* color: rgb(82, 245, 54); */
     color: white;
     text-align: center;
     font-family: 'Bree Serif', serif;
@@ -125,28 +120,22 @@
     font-family: 'Bree Serif', serif;
 }
 
-/* .h-primary h1 {
-    /* color: aqua; 
-} */
-
 h2 {
     font-size: 2.8rem;
 }
 
  #menu {
     padding: 40px 0;
-    /* background-color: #33333376; */
     background-color: #ff9a57;
 } 
 
 .lotti {
   height: 400px;
-  /* width: 400px; */
   width: 100%;
     display: flex;
-    justify-content: center; /* Centers the Lottie animation horizontally */
-    align-items: center; /* Ensures vertical centering, if necessary */
-    margin-top: 20px; /* Adds space between heading and animation */
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 20px; 
 }
 
 
@@ -155,10 +144,10 @@ h2 {
     height:00px;
     width:00px;
     position: absolute;
-    left: 20px; /* You can adjust the left position to your liking */
-    top: 50%; /* Centers the animation vertically in the section */
-    transform: translateY(-50%); /* Ensures the element is perfectly centered vertically */
-    z-index: 10; /* To make sure the animation stays on top of other elements */
+    left: 20px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    z-index: 10; 
 }
 
 #barside{
@@ -169,25 +158,23 @@ h2 {
 
   .bardata {
     position: fixed;
-    /* height: 80vh; */
     height: fit-content;
     width: 270px;
     top: 110px;
-    right: -270px;  /* Initially hide it to the left */
-    /* background: linear-gradient(135deg, #ff5d8e, #fa7690, #ff5d8e); */
+    right: -270px; 
     background-color: rgb(255, 165, 0);
     border: 2px solid black;
     border-radius: 10px;
-    transition: transform 0.4s ease-in-out;  /* Smooth transition for sliding */
+    transition: transform 0.4s ease-in-out;  
     z-index: 5;
 }
 
 .bardata.open {
-    transform: translateX(-270px);  /* Slide in from the left */
+    transform: translateX(-270px);  
 }
 
 .bardata.closed {
-    transform: translateX(0);  /* Slide back out to the left */
+    transform: translateX(0);  
 }
 
 .box1 {
@@ -204,13 +191,13 @@ h2 {
   padding-left: 2vh;
   align-items: center;
     position: relative;
-    transition: transform 0.3s ease; /* Smooth transition */
-    box-shadow: 0px 4px 8px rgb(249, 158, 67); /* Initial shadow */
+    transition: transform 0.3s ease; 
+    box-shadow: 0px 4px 8px rgb(249, 158, 67);
 }
 
 .box:hover {
-  transform: translateY(-15px); /* Moves the box 10px up */
-  box-shadow: 0px 10px 20px rgb(246, 150, 24); /* Shadow intensifies on hover */
+  transform: translateY(-15px); 
+  box-shadow: 0px 10px 20px rgb(246, 150, 24);
 }
 
 .box1 a {
@@ -225,7 +212,7 @@ h2 {
 
 #sideicon{
     position: fixed;
-    right: 15px; /* Position from the left */
+    right: 15px; 
     font-size: 2rem;
     color: white;
     cursor: pointer;
@@ -269,7 +256,6 @@ h2 {
 
 
 
-/* menu area */
 
   .menu-container {
     background-color: #fff;
@@ -402,4 +388,4 @@ h2 {
     transform: translateY(-5px);
     color: #0088ff;
   }
-  
+   */

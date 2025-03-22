@@ -6,6 +6,9 @@ import Homepage from "./Home"
 import Register from "./Register";
 import Login from "./Login";
 import MyCart from "./Mycart";
+import CanteenMenu from "./Canteenmenu"
+import CanteenOrderPage from "./Page"
+import CollegeCanteenLanding from "./Homepage"
 
 // const isOwner = () => {
 //   const user = JSON.parse(localStorage.getItem("role"));
@@ -17,9 +20,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/register" element={<Register />} />
+        {/* <Route path="/" element={<Homepage />} /> */}
+        <Route path="/" element={<CollegeCanteenLanding />} />
         <Route path="/mycart" element={<MyCart />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/Menu" element={<CanteenMenu />} />
+        <Route path="/Order" element={<CanteenOrderPage />} />
+        <Route path="/register" element={<Register />} />
+        {/* <Route path="/mycart" element={<MyCart />} /> */}
         <Route path="/login" element={<Login />} />
         {/* <Route path="/chat" element={<Chat />} /> */}
         {/* <Route path="/owner" element={<OwnerChat />} />  */}
