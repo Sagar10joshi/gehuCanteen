@@ -120,7 +120,7 @@ export default function CollegeCanteenLanding() {
                     <p className="hero-subtitle reveal">Fueling your education with quality meals at affordable prices</p>
                     <div className="hero-buttons reveal">
                         <a href="/Menu"><button className="primary-button">View Menu</button></a>
-                        <button className="secondary-button">Special Offers</button>
+                        <a href="/Special"><button className="secondary-button">Special Offers</button></a>
                     </div>
                 </div>
                 <div className="hero-image reveal">
