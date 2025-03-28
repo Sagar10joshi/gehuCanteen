@@ -9,6 +9,7 @@ import MyCart from "./Mycart";
 import CanteenMenu from "./Canteenmenu"
 import CanteenOrderPage from "./Page"
 import CollegeCanteenLanding from "./Homepage"
+import SpecialOffers from "./Special"
 
 // const isOwner = () => {
 //   const user = JSON.parse(localStorage.getItem("role"));
@@ -29,6 +30,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         {/* <Route path="/mycart" element={<MyCart />} /> */}
         <Route path="/login" element={<Login />} />
+        <Route path="/Special" element={<SpecialOffers />} />
         {/* <Route path="/chat" element={<Chat />} /> */}
         {/* <Route path="/owner" element={<OwnerChat />} />  */}
         {/* <Route path="/owner" element={isOwner() ? <OwnerChat /> : <Navigate to="/" />}/> */}
