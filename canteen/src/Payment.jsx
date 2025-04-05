@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ArrowLeft, CheckCircle2 } from "lucide-react"
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import "./Payment.css"

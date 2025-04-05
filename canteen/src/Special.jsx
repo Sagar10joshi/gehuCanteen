@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react"
 import "./Specialoffer.css"
+import third from './images/desret.png';
+import four from './images/beeverage.png';
 
 export default function SpecialOffers() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -92,7 +94,7 @@ export default function SpecialOffers() {
             originalPrice: "$8.99",
             discountedPrice: "$5.99",
             discount: "33%",
-            image: "/placeholder.svg?height=200&width=300",
+            image: third,
             badge: "Most Popular",
         },
         {
@@ -102,7 +104,7 @@ export default function SpecialOffers() {
             originalPrice: "$6.50",
             discountedPrice: "$5.20",
             discount: "20%",
-            image: "/placeholder.svg?height=200&width=300",
+            image: four,
             badge: "Staff Pick",
         },
         {
@@ -112,7 +114,7 @@ export default function SpecialOffers() {
             originalPrice: "$24.00",
             discountedPrice: "$18.00",
             discount: "25%",
-            image: "/placeholder.svg?height=200&width=300",
+            image: third,
             badge: "Best Value",
         },
     ]
@@ -122,31 +124,31 @@ export default function SpecialOffers() {
             day: "Monday",
             title: "Meatless Monday",
             description: "All vegetarian dishes at 15% off",
-            image: "/placeholder.svg?height=100&width=100",
+            image: third,
         },
         {
             day: "Tuesday",
             title: "Taco Tuesday",
             description: "Buy 2 tacos, get 1 free",
-            image: "/placeholder.svg?height=100&width=100",
+            image: four,
         },
         {
             day: "Wednesday",
             title: "Wellness Wednesday",
             description: "20% off all salads and healthy bowls",
-            image: "/placeholder.svg?height=100&width=100",
+            image: third,
         },
         {
             day: "Thursday",
             title: "Thirsty Thursday",
             description: "All smoothies and specialty drinks $1 off",
-            image: "/placeholder.svg?height=100&width=100",
+            image: four,
         },
         {
             day: "Friday",
             title: "Pizza Friday",
             description: "Buy one slice, get second at half price",
-            image: "/placeholder.svg?height=100&width=100",
+            image: third,
         },
     ]
 
@@ -245,7 +247,7 @@ export default function SpecialOffers() {
           </div> */}
                 </div>
                 <div className="offers-hero-image reveal">
-                    <img src="/placeholder.svg?height=400&width=500" alt="Special offers and discounts" />
+                <img src={four} alt="Delicious canteen food" />
                     <div className="floating-badge">
                         <span>
                             Up to
