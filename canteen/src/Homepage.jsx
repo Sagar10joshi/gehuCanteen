@@ -53,7 +53,7 @@ export default function CollegeCanteenLanding() {
         if (User) {
             setisloggedIn(true);
         }
-        // localStorage.removeItem("user");
+        localStorage.removeItem("user");
 
         const roleFromStorage = JSON.parse(localStorage.getItem("role2"));
         // console.log(roleFromStorage);  // Log the parsed role
@@ -61,7 +61,7 @@ export default function CollegeCanteenLanding() {
         // Set Role state
         setRole(roleFromStorage);  // { role: 'owner' }
         // console.log(Role.role);  // 'owner'
-        // localStorage.removeItem("role2");
+        localStorage.removeItem("role2");
 
     }, []); // Empty dependency array means this effect runs only once
 
