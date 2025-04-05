@@ -34,7 +34,7 @@ export default function CanteenPaymentPage({ cart, totalPrice, onBack }) {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/save-order', {
+      const response = await fetch('https://gehu-canteen-n6r8-sagars-projects-0f20619e.vercel.app/save-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
