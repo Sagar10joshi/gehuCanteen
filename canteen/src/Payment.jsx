@@ -16,6 +16,7 @@ export default function CanteenPaymentPage({ cart, totalPrice, onBack }) {
   let result;
   let User = JSON.parse(localStorage.getItem("user"));
 
+
   const handlePaymentSubmit = async () => {
     // In a real app, this would process the payment
 
@@ -68,8 +69,6 @@ export default function CanteenPaymentPage({ cart, totalPrice, onBack }) {
     }
   }
 
-
-
   useEffect(() => {
     // Set up the interval to check every 10 seconds
     const interval = setInterval(() => {
@@ -117,12 +116,44 @@ export default function CanteenPaymentPage({ cart, totalPrice, onBack }) {
     // Clean up the interval on unmount
     return () => clearInterval(interval);
   }, []);  // Add dependencies if necessary, like result.orderId
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   if (orderPlaced) {
     return (
       <div className="canteen-success-container">
         <div className="canteen-success-content">
           <CheckCircle2 className="canteen-success-icon" />
+
+
+          {/* <h1 className="canteen-success-title">
+            {orderConfirmed ? "Order Confirmed!" : "Order Placed Successfully!"}
+          </h1>
+          <p className="canteen-success-message">
+            {orderConfirmed
+              ? "Your order has been confirmed and will be ready for pickup shortly."
+              : "Your order has been placed and will be processed soon."}
+          </p>
+ */}
+
+
+
           <h1 className="canteen-success-title">Order Placed Successfully!</h1>
           <p className="canteen-success-message">
             Your order has been placed and will be ready for pickup in approximately 15-20 minutes.
@@ -219,7 +250,7 @@ export default function CanteenPaymentPage({ cart, totalPrice, onBack }) {
             </div>
           </div>
           <div className="canteen-payment-footer">
-            <button className="canteen-complete-payment-btn" onClick={handlePaymentSubmit}>
+            <button className="canteen-complete-payment-btn" onClick={handlePaymentSubmit} >
               Complete Payment
             </button>
           </div>
