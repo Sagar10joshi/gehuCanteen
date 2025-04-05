@@ -260,6 +260,7 @@ export default function CanteenPaymentPage({ cart, totalPrice, onBack }) {
           </div>
         </div>
       </div>
+      {message && <div className="canteen-message">{message}</div>}
     </div>
   )
 }
