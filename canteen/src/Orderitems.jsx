@@ -100,18 +100,37 @@ export default function CanteenOrderItems() {
   const [showPayment, setShowPayment] = useState(false)
   const [activeCategory, setActiveCategory] = useState("All")
 
+  // const addToCart = (item) => {
+  //   setCart((prevCart) => {
+  //     const existingItem = prevCart.find((cartItem) => cartItem.item.id === item.id)
+  //     if (existingItem) {
+  //       return prevCart.map((cartItem) =>
+  //         cartItem.item.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
+  //       )
+  //     } else {
+  //       return [...prevCart, { item, quantity: 1 }]
+  //     }
+  //   })
+  // }
+
+
+
   const addToCart = (item) => {
     setCart((prevCart) => {
-      const existingItem = prevCart.find((cartItem) => cartItem.item.id === item.id)
+      const existingItem = prevCart.find((cartItem) => cartItem.item.id === item.id);
+  
       if (existingItem) {
+        // If the item already exists in the cart, update its quantity
         return prevCart.map((cartItem) =>
-          cartItem.item.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
-        )
+          cartItem.item.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+        );
       } else {
-        return [...prevCart, { item, quantity: 1 }]
+        // If the item doesn't exist, add a new item with a quantity of 1
+        return [...prevCart, { item, quantity: 1 }];
       }
-    })
-  }
+    });
+  };
+  
 
   const removeFromCart = (itemId) => {
     setCart((prevCart) => {

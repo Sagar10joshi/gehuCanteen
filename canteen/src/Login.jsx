@@ -61,7 +61,7 @@ const Login = () => {
                   }
 
                   //this is for correct routing of user and owner
-                  localStorage.setItem("role", JSON.stringify(roleinfo));
+                  localStorage.setItem("role2", JSON.stringify(roleinfo));
                 //   console.log("Saved user:", localStorage.getItem("role"));
 
 

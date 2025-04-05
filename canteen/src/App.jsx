@@ -10,6 +10,8 @@ import CanteenMenu from "./Canteenmenu"
 import CanteenOrderPage from "./Page"
 import CollegeCanteenLanding from "./Homepage"
 import SpecialOffers from "./Special"
+import OTPVerification from './Otp'
+import OwnerDashboard from './Dashbord'
 
 // const isOwner = () => {
 //   const user = JSON.parse(localStorage.getItem("role"));
@@ -24,12 +26,14 @@ function App() {
         {/* <Route path="/" element={<Homepage />} /> */}
         <Route path="/" element={<CollegeCanteenLanding />} />
         <Route path="/mycart" element={<MyCart />} />
-        <Route path="/chat" element={<Chat />} />
+        {/* <Route path="/chat" element={<Chat />} /> */}
         <Route path="/Menu" element={<CanteenMenu />} />
         <Route path="/Order" element={<CanteenOrderPage />} />
         <Route path="/register" element={<Register />} />
         {/* <Route path="/mycart" element={<MyCart />} /> */}
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<OwnerDashboard />} />
+        <Route path="/otp" element={<OTPVerification />} />
         <Route path="/Special" element={<SpecialOffers />} />
         {/* <Route path="/chat" element={<Chat />} /> */}
         {/* <Route path="/owner" element={<OwnerChat />} />  */}

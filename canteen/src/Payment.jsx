@@ -2,16 +2,121 @@
 
 import { useState } from "react"
 import { ArrowLeft, CheckCircle2 } from "lucide-react"
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import "./Payment.css"
 
 export default function CanteenPaymentPage({ cart, totalPrice, onBack }) {
   const [paymentMethod, setPaymentMethod] = useState("upi")
   const [orderPlaced, setOrderPlaced] = useState(false)
+  const [message, setMessage] = useState(""); // State to hold the message
+  const [orderConfirmed, setOrderConfirmed] = useState(false);
+  const [orderId, setOrderId] = useState(null);
+  const navigate = useNavigate(); // Correctly defined here
 
-  const handlePaymentSubmit = () => {
+  let result;
+  let User = JSON.parse(localStorage.getItem("user"));
+
+  const handlePaymentSubmit = async () => {
     // In a real app, this would process the payment
-    setOrderPlaced(true)
+
+    const orderData = {
+      customerName: User.username, // You can replace this with actual user data (from user session, etc.)
+      customerEmail: "o102@gehu.ac.in", // Replace with actual user contact info
+      paymentMethod: paymentMethod,
+      cart: cart.map((cartItem) => ({
+        id: cartItem.item.id,     // Item ID
+        name: cartItem.item.name, // Item Name
+        quantity: cartItem.quantity,
+      })),
+      totalPrice: totalPrice,
+      taxes: Math.round(totalPrice * 0.05),
+      totalAmount: totalPrice + Math.round(totalPrice * 0.05),
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/save-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      console.log('Order Data:', orderData);
+      localStorage.removeItem('confirmedOrderId');
+
+
+       result = await response.json();
+
+      console.log(result);
+
+
+
+
+      if (response.ok) {
+
+
+
+        // Successfully saved the order, now show the success page
+      } else {
+        // Handle the error case
+        alert(result.message || "Something went wrong while placing the order.");
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      alert("There was an error processing your payment.");
+    }
   }
+
+
+
+  useEffect(() => {
+    // Set up the interval to check every 10 seconds
+    const interval = setInterval(() => {
+      const rejectedOrderId = localStorage.getItem('rejectedOrderId')
+      const confirmedOrderId = localStorage.getItem('confirmedOrderId');
+      console.log("Confirmed Order ID after interval:", confirmedOrderId);
+      // console.log("Result Order ID after interval:", result.orderId);
+      console.log("Rejected Order ID after interval:", rejectedOrderId);
+
+      if(rejectedOrderId){
+        alert('Sorry. Your order is not accepted by the canteen');
+        clearInterval(interval);
+        navigate('/');
+        localStorage.removeItem('rejectedOrderId');
+      }
+
+      // if (rejectedOrderId) {
+      //   alert('Sorry! Your order is not accepted by the canteen.');
+        
+      //   // Clear the interval before navigating
+      //   clearInterval(interval);
+        
+      //   // Navigate after a slight delay to allow the alert to be dismissed
+      //   setTimeout(() => {
+      //     navigate('/');
+      //   }, 500); // Adjust delay if needed (500ms is generally enough)
+        
+      //   // Clear the rejected order ID from localStorage
+      //   localStorage.removeItem('rejectedOrderId');
+      // }
+
+  
+      if (confirmedOrderId) {
+        if (confirmedOrderId === result.orderId) {
+          setOrderPlaced(true);  // Set the order as placed
+          clearInterval(interval);  // Stop the interval once the order is placed
+          setMessage(""); // Clear any messages
+        }
+      } else {
+        // alert('No confirmed order ID');
+        setMessage("Order not confirmed yet. Please wait..."); // Show message if no order confirmed
+      }
+    }, 10000); // 10 seconds
+  
+    // Clean up the interval on unmount
+    return () => clearInterval(interval);
+  }, []);  // Add dependencies if necessary, like result.orderId
 
   if (orderPlaced) {
     return (
@@ -23,7 +128,14 @@ export default function CanteenPaymentPage({ cart, totalPrice, onBack }) {
             Your order has been placed and will be ready for pickup in approximately 15-20 minutes.
           </p>
           <p className="canteen-order-id">Order ID: #{Math.floor(Math.random() * 10000)}</p>
-          <button className="canteen-new-order-btn" onClick={() => window.location.reload()}>
+          {/* <button className="canteen-new-order-btn" onClick={() => window.location.reload()}>
+            Place Another Order
+          </button> */}
+          <button className="canteen-new-order-btn" onClick={() => {
+            setOrderPlaced(false);
+            localStorage.removeItem('confirmedOrderId');
+            window.location.reload();  // Or reset cart state
+          }}>
             Place Another Order
           </button>
         </div>

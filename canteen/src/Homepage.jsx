@@ -9,6 +9,8 @@ import four from './images/beeverage.png';
 export default function CollegeCanteenLanding() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [activeSection, setActiveSection] = useState("home")
+    const [isloggedIn, setisloggedIn] = useState(false)
+    const [Role, setRole] = useState(null);
 
     // Scroll animation effect
     useEffect(() => {
@@ -42,6 +44,26 @@ export default function CollegeCanteenLanding() {
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
     }
+
+    useEffect(() => {
+        // Run this logic once when the component mounts
+        const User = localStorage.getItem("user");
+        // console.log(User);
+
+        if (User) {
+            setisloggedIn(true);
+        }
+        // localStorage.removeItem("user");
+
+        const roleFromStorage = JSON.parse(localStorage.getItem("role2"));
+        // console.log(roleFromStorage);  // Log the parsed role
+
+        // Set Role state
+        setRole(roleFromStorage);  // { role: 'owner' }
+        // console.log(Role.role);  // 'owner'
+        // localStorage.removeItem("role2");
+
+    }, []); // Empty dependency array means this effect runs only once
 
     const menuItems = [
         { name: "Breakfast Specials", price: "$3.99", image: third },
@@ -106,7 +128,16 @@ export default function CollegeCanteenLanding() {
                     <a href="#location" className={activeSection === "location" ? "active" : ""}>
                         Location
                     </a>
-                    <a href="/login"><button className="order-button">Order Now</button></a>
+                    {/* <a href="/login"><button className="order-button">Order Now</button></a> */}
+                    {isloggedIn ? (
+                        Role && Role.role === 'owner' ? (
+                            <a href="/dashboard"><button className="order-button">Manage Orders</button></a>
+                        ) : (
+                            <a href="/Order"><button className="order-button">Order Now</button></a>
+                        )
+                    ) : (
+                        <a href="/login"><button className="order-button">Order Now</button></a>
+                    )}
                 </nav>
             </header> <br /> <br /> <br />
 
