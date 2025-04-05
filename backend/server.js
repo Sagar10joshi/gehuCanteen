@@ -4,8 +4,10 @@ import bcrypt from "bcrypt"
 import jwt from 'jsonwebtoken';
 import { Server } from "socket.io";
 import http from "http";
+import { sendOtp } from "./api/mail.js";
 import dbConnect from "./api/dbConnect.js";
 import { User } from "./api/registerModel.js";
+import { Order } from "./api/orderModel.js";
 import { error } from "console";
 
 const app = express();
@@ -49,47 +51,88 @@ app.post('/register', async (req, res) => {
     const { name, email, password, confirmPassword, role } = req.body;
 
     // Check if all fields are provided
-    if (!name || !email || !password || !confirmPassword || !role) {
-      return res.status(400).json({ message: 'Please fill in all fields.' });
-    }
+    // if (!name || !email || !password || !confirmPassword || !role) {
+    //   return res.status(400).json({ message: 'Please fill in all fields.' });
+    // }
 
     // Check if passwords match
-    if (password !== confirmPassword) {
-      return res.status(400).json({ message: 'Passwords do not match.' });
+    // if (password !== confirmPassword) {
+    //   return res.status(400).json({ message: 'Both password should match.' });
+    // }
+
+    const otp = Math.floor(1000 + Math.random() * 9000).toString();
+    const otpTimestamp = Date.now();
+    const token = jwt.sign({ name, role, email, password, otp, otpTimestamp }, '12345', { expiresIn: '5m' });
+
+    if (email) {
+      try {
+        await sendOtp(email, otp);
+        res.status(200).json({
+          message: 'Otp sent successfully',
+          token,
+          redirect: '/otp'
+        });
+      } catch (error) {
+        console.error('Error in sending otp', error)
+        res.status(500).send('Error sending Otp , try again.')
+      }
+    } else {
+      res.status(400).send('Email is required');
     }
-
-    // Check if the email already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: 'Email already exists!' });
-    }
-
-    // Hash the password before saving
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create the user object
-    const newUser = new User({
-      name,
-      email,
-      password: hashedPassword,
-      role
-    });
-
-    // Save the user to the database
-    await newUser.save();
-
-    // Return a successful response
-    return res.status(200).json({
-      message: 'Registration successful!',
-      role: newUser.role,
-      redirect: '/login' // Redirect after successful registration
-    });
-
   } catch (error) {
     console.error('Error during registration:', error); // Log the error with more details
     return res.status(500).json({ message: 'An error occurred. Please try again.', error: error.message });
   }
 });
+
+
+
+//Route for verifying otp and saving user in database
+
+app.post('/otp', async (req, res) => {
+
+  const token = req.headers['authorization']?.split(' ')[1]; // Assuming 'Bearer <token>'
+  console.log('Received token:', token);
+  if (!token) return res.status(401).send('Access denied. No token provided.');
+
+  try {
+    const code = req.body.otp
+    const currentTime = Date.now()
+    const decoded = jwt.verify(token, '12345');
+    const { otp, otpTimestamp } = decoded;
+    // console.log('decoded');
+
+    // Access the user data from the decoded token
+    const { name, email, password, role } = decoded;
+
+
+
+
+    if (code === otp && currentTime - otpTimestamp < 120000) {
+
+      const saltRounds = 10; // You can adjust the number of salt rounds
+      const hashedPassword = await bcrypt.hash(password, saltRounds); // Hashing the password
+      console.log(hashedPassword);
+      
+
+      const registerUser = new User({
+        name,
+        email,
+        password: hashedPassword,
+        role
+      })
+      const Registered = await registerUser.save();
+      return res.status(200).json({
+        message: 'Registration successful!',
+        redirect: '/login' // Redirect to quiz page
+      });
+    } else {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+})
 
 //Route for login
 
@@ -132,6 +175,78 @@ app.post('/login', async (req, res) => {
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).send('An error occurred during login');
+  }
+});
+
+
+// API Endpoint to save order
+app.post('/save-order', async (req, res) => {
+  const { customerName, customerEmail, paymentMethod, cart, totalPrice, taxes, totalAmount } = req.body;
+
+  // Log the cart array explicitly to view all item details
+  // console.log('Received Order:', cart);
+
+  const newOrder = new Order({
+    customerName,
+    customerEmail,
+    paymentMethod,
+    cart,
+    totalPrice,
+    taxes,
+    totalAmount,
+  });
+  // console.log(' Order:', newOrder);
+
+  try {
+    const savedOrder = await newOrder.save();
+    res.status(200).json({ message: "Order saved successfully", orderId: savedOrder._id });
+  } catch (error) {
+    console.error("Error saving order:", error);
+    res.status(500).json({ message: "Failed to save order. Please try again later." });
+  }
+});
+
+//Route for fetching orders
+
+app.get('/orders', async (req, res) => {
+  try {
+    const orders = await Order.find(); // Fetch all users from the database
+    res.json(orders); // Respond with the list of users
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' }); // Handle any errors
+  }
+});
+
+
+// Route to confirm an order
+app.post('/orders/confirm/:id', async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const updatedOrder = await Order.findByIdAndUpdate(orderId, { status: 'Confirmed' }, { new: true });
+    res.json(updatedOrder);
+  } catch (error) {
+    res.status(500).json({ message: 'Error confirming order', error });
+  }
+});
+
+
+
+
+// Route to reject an order and delete it
+app.post('/orders/reject/:id', async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    // First, let's delete the order from the database
+    const deletedOrder = await Order.findByIdAndDelete(orderId);
+
+    // If the order doesn't exist, return an error
+    if (!deletedOrder) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    res.json({ message: 'Order rejected and deleted', order: deletedOrder });
+  } catch (error) {
+    res.status(500).json({ message: 'Error rejecting and deleting order', error });
   }
 });
 
