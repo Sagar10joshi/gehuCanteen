@@ -14,6 +14,7 @@ export default function CanteenPaymentPage({ cart, totalPrice, onBack }) {
   const navigate = useNavigate(); // Correctly defined here
 
   let result;
+  let OrderId;
   let User = JSON.parse(localStorage.getItem("user"));
 
 
@@ -43,19 +44,19 @@ export default function CanteenPaymentPage({ cart, totalPrice, onBack }) {
         body: JSON.stringify(orderData),
       });
 
-      console.log('Order Data:', orderData);
-      localStorage.removeItem('confirmedOrderId');
+      // console.log('Order Data:', orderData);
+      // localStorage.removeItem('confirmedOrderId');
 
 
-       result = await response.json();
+      result = await response.json();
 
-      console.log(result);
+      // console.log(result);
 
 
 
 
       if (response.ok) {
-
+        OrderId = result.orderId;
 
 
         // Successfully saved the order, now show the success page
@@ -70,66 +71,53 @@ export default function CanteenPaymentPage({ cart, totalPrice, onBack }) {
   }
 
   useEffect(() => {
-    // Set up the interval to check every 10 seconds
-    const interval = setInterval(() => {
-      const rejectedOrderId = localStorage.getItem('rejectedOrderId')
-      const confirmedOrderId = localStorage.getItem('confirmedOrderId');
-      console.log("Confirmed Order ID after interval:", confirmedOrderId);
-      // console.log("Result Order ID after interval:", result.orderId);
-      console.log("Rejected Order ID after interval:", rejectedOrderId);
 
-      if(rejectedOrderId){
-        alert('Sorry. Your order is not accepted by the canteen');
+  // Set up the interval to check every 10 seconds
+  const interval = setInterval(async () => {
+
+    if (!OrderId)
+    console.log("no order id");
+    // console.log(OrderId);
+    
+
+    try {
+      const response = await fetch(`https://gehu-canteen-n6r8-sagars-projects-0f20619e.vercel.app/orders/${OrderId}`);
+      const order = await response.json();
+      // console.log("Your placed order:",order);
+
+      // console.log("Your order status:",order.status);
+      
+
+
+      
+
+      if (order.status === "Confirmed") {
+        setOrderPlaced(true);
+        setMessage("");
+        clearInterval(interval);
+      } else if (order.status === "pending") {
+        setMessage("Your order is still pending...");
+      } else if (order.status === "rejected") {
+        setMessage("Your order is rejected.");
+        alert("Your order is rejected");
         clearInterval(interval);
         navigate('/');
-        localStorage.removeItem('rejectedOrderId');
       }
+    } catch (error) {
+      console.error("Error fetching order status:", error);
+    }
 
-      // if (rejectedOrderId) {
-      //   alert('Sorry! Your order is not accepted by the canteen.');
-        
-      //   // Clear the interval before navigating
-      //   clearInterval(interval);
-        
-      //   // Navigate after a slight delay to allow the alert to be dismissed
-      //   setTimeout(() => {
-      //     navigate('/');
-      //   }, 500); // Adjust delay if needed (500ms is generally enough)
-        
-      //   // Clear the rejected order ID from localStorage
-      //   localStorage.removeItem('rejectedOrderId');
-      // }
+  }, 10000); // 10 seconds
+
+  // Clean up the interval on unmount
+  return () => clearInterval(interval);
+}, []);  // Add dependencies if necessary, like result.orderId
+
 
   
-      if (confirmedOrderId) {
-        if (confirmedOrderId === result.orderId) {
-          setOrderPlaced(true);  // Set the order as placed
-          clearInterval(interval);  // Stop the interval once the order is placed
-          setMessage(""); // Clear any messages
-        }
-      } else {
-        // alert('No confirmed order ID');
-        setMessage("Order not confirmed yet. Please wait..."); // Show message if no order confirmed
-      }
-    }, 10000); // 10 seconds
-  
-    // Clean up the interval on unmount
-    return () => clearInterval(interval);
-  }, []);  // Add dependencies if necessary, like result.orderId
   
 
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
 

@@ -185,7 +185,7 @@ app.post('/save-order', async (req, res) => {
 
   // Log the cart array explicitly to view all item details
   // console.log('Received Order:', cart);
-
+   
   const newOrder = new Order({
     customerName,
     customerEmail,
@@ -194,6 +194,7 @@ app.post('/save-order', async (req, res) => {
     totalPrice,
     taxes,
     totalAmount,
+    status: 'pending'
   });
   // console.log(' Order:', newOrder);
 
@@ -222,6 +223,21 @@ app.get('/orders', async (req, res) => {
 app.post('/orders/confirm/:id', async (req, res) => {
   try {
     const orderId = req.params.id;
+
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    if (order.status !== 'pending') {
+      return res.status(400).json({ message: 'Order already processed' });
+    }
+
+    order.status = 'confirmed';
+    order.updatedAt = Date.now();
+    await order.save();
+
     const updatedOrder = await Order.findByIdAndUpdate(orderId, { status: 'Confirmed' }, { new: true });
     res.json(updatedOrder);
   } catch (error) {
@@ -236,17 +252,39 @@ app.post('/orders/confirm/:id', async (req, res) => {
 app.post('/orders/reject/:id', async (req, res) => {
   try {
     const orderId = req.params.id;
-    // First, let's delete the order from the database
-    const deletedOrder = await Order.findByIdAndDelete(orderId);
 
-    // If the order doesn't exist, return an error
-    if (!deletedOrder) {
+    const order = await Order.findById(orderId);
+
+    if (!order) {
       return res.status(404).json({ message: 'Order not found' });
     }
 
-    res.json({ message: 'Order rejected and deleted', order: deletedOrder });
+    if (order.status !== 'pending') {
+      return res.status(400).json({ message: 'Order already processed' });
+    }
+
+    order.status = 'rejected';
+    order.updatedAt = Date.now();
+    await order.save();
+
+    const updatedOrder = await Order.findByIdAndUpdate(orderId, { status: 'rejected' }, { new: true });
+    res.json(updatedOrder);
+
   } catch (error) {
     res.status(500).json({ message: 'Error rejecting and deleting order', error });
+  }
+});
+
+
+app.get('/orders/:orderId', async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.orderId);
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+    res.json(order);  // Respond with the order details
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching order status' });
   }
 });
 

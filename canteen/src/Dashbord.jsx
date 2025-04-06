@@ -1,4 +1,4 @@
-// src/components/OrderDashboard.jsx
+// src/components/OrderDashboard.jsx   https://gehu-canteen.vercel.app/
 
 import React, { useState, useEffect } from "react";
 import './Dashboard.css'; // for styling
@@ -31,29 +31,26 @@ const OwnerDashboard = () => {
                 setOrders(orders.map(order =>
                     order._id === orderId ? { ...order, status: 'Confirmed' } : order
                 ));
-
-                // Store the confirmed order in sessionStorage
-                localStorage.setItem('confirmedOrderId', orderId);
-
-                console.log("Owner confirmed order ID:", orderId);
                 
             })
             .catch(error => console.error("Error confirming order", error));
     };
 
-    // Handle rejecting an order
     const handleReject = (orderId) => {
-        fetch(`https://gehu-canteen-n6r8-sagars-projects-0f20619e.vercel.app/orders/reject/${orderId}`, {
-            method: "POST",
+        fetch(`http://localhost:3000/orders/reject/${orderId}`, {
+            method: "POST",  // You can also use "PUT" depending on how your backend is configured
         })
             .then(() => {
                 // Update the local state after rejecting the order
-                setOrders(orders.filter(order => order._id !== orderId));
-                // Store the rejected order in sessionStorage
-                localStorage.setItem('rejectedOrderId', orderId);
+                setOrders(orders.map(order =>
+                    order._id === orderId ? { ...order, status: 'Rejected' } : order
+                ));
+
             })
             .catch(error => console.error("Error rejecting order", error));
     };
+
+
 
     if (loading) {
         return <div>Loading...</div>;
