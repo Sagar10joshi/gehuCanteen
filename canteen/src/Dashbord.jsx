@@ -37,7 +37,7 @@ const OwnerDashboard = () => {
     };
 
     const handleReject = (orderId) => {
-        fetch(`http://localhost:3000/orders/reject/${orderId}`, {
+        fetch(`https://gehu-canteen-n6r8-sagars-projects-0f20619e.vercel.app/orders/reject/${orderId}`, {
             method: "POST",  // You can also use "PUT" depending on how your backend is configured
         })
             .then(() => {
